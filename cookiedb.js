@@ -26,7 +26,7 @@ class CookieDB {
 
   update(key, value) {
     localStorage.removeItem(key)
-    localStorage.setItem(key, value)
+    localStorage.setItem(key, JSON.stringify(value))
   }
 
   count() {
