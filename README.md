@@ -19,31 +19,49 @@ Now, you can insert, update, find, and remove data from your web application.
 
 ## Documentation
 #### Insert
-Store a value through a key. This information will be available even after the user has closed their tab or browser. Call the insert function on the CookieDB object and pass a key (a reference to the data) and a value (the data you want to store)
+Store an object on the browser. This information will be available even after the user has closed their tab or browser. Call the insert function on the CookieDB object and pass an object that you want to store.
 ```javascript
-db.insert('name', 'Steve')
+db.insert({name: 'Steve', age: 18}) // {_id: 0, name: 'Steve', age: 18}
 ```
 
 #### Update
-Update a value that is pre-existing in the database, by passing the key and the new value.
+Update a value that is pre-existing in the database, by passing the _id and the new value.
 ```javascript
-db.update('name', 'Bob')
+db.update(0, {name: 'Bob', age: 22})
 ```
 
 #### Find
-Find the value of data by referencing its key.
+Find the value of the data you are looking for by referencing a subset of its properties.
 ```javascript
-db.find('name') // returns 'Bob' 
+db.find({age: 22}) // returns {_id: 0, name: 'Bob', age: 22} 
 ```
 
 #### Remove
-Remove a value that exists in the database by its key.
+Remove some value(s) that exists in the database by a subset of its properties.
 ```javascript
-db.remove('name')
+db.remove({name: 'Bob'})
+```
+
+#### Count
+Returns the number of items that are in the database. Since we have `{_id: 0, name: 'Bob', age: 22}` in our database, it will return 1.
+```javascript
+db.count() // returns 1
+```
+
+#### Dump
+Returns the entire database and all its contents.
+```javascript
+db.dump()
+```
+
+#### Drop
+Deletes all the content of the database.
+```javascript
+db.drop()
 ```
 
 ## Todo
 * Ability to make collections and other ways of organizing data.
-* Advanced querying options.
+* ~Advanced querying options.~
 * Functionality to perform multiple inserts, updates, and removes at once.
 * Feedback for operations such as error / success codes.
