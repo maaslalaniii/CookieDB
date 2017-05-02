@@ -1,11 +1,11 @@
 class CookieDB {
 
   insert(key, value) {
-    localStorage.setItem(key, value)
+    localStorage.setItem(key, JSON.stringify(value))
   }
 
   find(key) {
-    return localStorage.getItem(key)
+    return JSON.parse(localStorage.getItem(key))
   }
 
   remove(key) {
