@@ -21,7 +21,8 @@ Now, you can insert, update, find, and remove data from your web application.
 #### Insert
 Store an object on the browser. This information will be available even after the user has closed their tab or browser. Call the insert function on the CookieDB object and pass an object that you want to store.
 ```javascript
-db.insert({name: 'Steve', age: 18}) // {_id: 0, name: 'Steve', age: 18}
+db.insert({name: 'Steve', age: 18})
+// {_id: 0, name: 'Steve', age: 18}
 ```
 
 #### Update
@@ -33,7 +34,8 @@ db.update(0, {name: 'Bob', age: 22})
 #### Find
 Find the value of the data you are looking for by referencing a subset of its properties. The find function returns an array of all items in the database that match the query. The function can return an empty array or array of length 1.
 ```javascript
-db.find({age: 22}) // returns [{_id: 0, name: 'Bob', age: 22}] 
+db.find({age: 22})
+// returns [{_id: 0, name: 'Bob', age: 22}] 
 ```
 
 #### Remove
@@ -45,7 +47,8 @@ db.remove({name: 'Bob'})
 #### Count
 Returns the number of items that are in the database. Since we have `{_id: 0, name: 'Bob', age: 22}` in our database, it will return 1.
 ```javascript
-db.count() // returns 1
+db.count()
+// returns 1
 ```
 
 #### Drop
