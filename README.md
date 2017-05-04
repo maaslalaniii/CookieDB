@@ -31,9 +31,9 @@ db.update(0, {name: 'Bob', age: 22})
 ```
 
 #### Find
-Find the value of the data you are looking for by referencing a subset of its properties.
+Find the value of the data you are looking for by referencing a subset of its properties. The find function returns an array of all items in the database that match the query. The function can return an empty array or array of length 1.
 ```javascript
-db.find({age: 22}) // returns {_id: 0, name: 'Bob', age: 22} 
+db.find({age: 22}) // returns [{_id: 0, name: 'Bob', age: 22}] 
 ```
 
 #### Remove
