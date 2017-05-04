@@ -48,12 +48,6 @@ Returns the number of items that are in the database. Since we have `{_id: 0, na
 db.count() // returns 1
 ```
 
-#### Dump
-Returns the entire database and all its contents.
-```javascript
-db.dump()
-```
-
 #### Drop
 Deletes all the content of the database.
 ```javascript

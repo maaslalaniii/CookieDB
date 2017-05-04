@@ -33,10 +33,6 @@ class CookieDB {
     return localStorage.length
   }
 
-  dump() {
-    return localStorage
-  }
-
   drop() {
     localStorage.clear()
   }
