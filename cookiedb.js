@@ -1,15 +1,25 @@
 class CookieDB {
 
-  insert(value) {
-    value._id = localStorage.length
-    localStorage.setItem(localStorage.length, JSON.stringify(value))
+  constructor() {
+    this.length = JSON.parse(localStorage.getItem('length')) || 0
   }
 
-  find(query) {
-    let items = []
+  createCollection(collection) {
+    localStorage.setItem(collection, JSON.stringify([]))
+  }
 
-    for (let i = 0; i < localStorage.length; i++)
-      items.push(JSON.parse(localStorage[i]))
+  insert(collection, value) {
+    value._id = this.length++
+    localStorage.setItem('length', JSON.stringify(this.length))
+
+    let data = JSON.parse(localStorage.getItem(collection))
+    data.push(value)
+
+    localStorage.setItem(collection, JSON.stringify(data))
+  }
+
+  find(collection, query) {
+    let items = JSON.parse(localStorage.getItem(collection))
 
     for (let property in query)
       items = items.filter(item => item[property] == query[property])
@@ -17,20 +27,29 @@ class CookieDB {
     return items
   }
 
-  remove(query) {
+  remove(collection, query) {
     let items = this.find(query)
 
     for (let i = 0; i < items.length; i++)
       localStorage.removeItem(items[i]._id)
   }
 
-  update(key, value) {
-    localStorage.removeItem(key)
-    localStorage.setItem(key, JSON.stringify(value))
+  update(collection, key, value) {
+    let items = JSON.parse(localStorage.getItem(collection))
+
+    for (let property in value) {
+      items[key][property] = value[property]
+    }
+
+    localStorage.setItem(collection, JSON.stringify(items))
   }
 
   count() {
-    return localStorage.length
+    return this.length
+  }
+
+  dump() {
+    return localStorage
   }
 
   drop() {
