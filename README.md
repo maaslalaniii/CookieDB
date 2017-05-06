@@ -1,6 +1,6 @@
 # Cookie:cookie:DB
 
-CookieDB is a database for the browser. For now, it is a wrapper on top of HTML localStorage with many extra features, but it aims to be a complete solution for storing data on the browser. Soon, it will be able to organize data into collections and documents, like any noSQL database, with more to come in the future. CookieDB aims to be syntactically similar to MongoDB.
+CookieDB is a database for the browser. It can store data as documents in collections like any noSQL database. It allows for very organized and structured data by using nothing other than javascript on the browser.  
 
 ## Setup
 Simply include the cookiedb.js file into your project and link to it through script tags.
@@ -45,14 +45,14 @@ db.update('books', 3, { author: 'Eric Blair' })
 ```
 
 #### Find
-Find the value of the data you are looking for in a collection by referencing a subset of its properties. The find function returns an array of all items in the database that match the query. The function can return an empty array or array of length 1. Let's query for The Great Gatsby book.
+Find the value of the data you are looking for in a collection by referencing a subset of its properties, passing an empty object will return all documents in the specified collection. The find function returns an array of all items in the database that match the query. The function can return an empty array or array of length 1. Let's query for The Great Gatsby book.
 ```javascript
 db.find('books' { title: 'The Great Gatsby' })
 // returns [{_id: 0, title: 'The Great Gatsby', year: 1925, author: 'F. Scott Fitzgerald'}] 
 ```
 
 #### Remove
-Remove some value(s) that exists in the database by a subset of its properties. Let's remove all books published in 1960
+Remove some value(s) that exists in the database by a subset of its properties. Let's remove all books published in 1960.
 ```javascript
 db.remove('books', { year: 1960 })
 // removes to kill a mockingbird from the database
