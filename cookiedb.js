@@ -43,12 +43,14 @@ class CookieDB {
     localStorage.setItem(collection, data)
   }
 
-  update(collection, key, value) {
+  update(collection, ...changes) {
     let items = JSON.parse(localStorage.getItem(collection))
 
-    for (let property in value) {
-      items[key][property] = value[property]
-    }
+    changes.forEach(function(change) {
+      for (let property in change.value) {
+        items[change.key][property] = change.value[property]
+      }
+    })
 
     localStorage.setItem(collection, JSON.stringify(items))
   }
