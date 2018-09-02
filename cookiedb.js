@@ -29,11 +29,18 @@ class CookieDB {
     return items
   }
 
-  remove(collection, query) {
-    let items = this.find(query)
+  remove(collection, ...queries) {
+    let data = localStorage.getItem(collection)
 
-    for (let i = 0; i < items.length; i++)
-      localStorage.removeItem(items[i]._id)
+    queries.forEach(query => {
+      let items = this.find(collection, query)
+      for (let i = 0; i < items.length; i++) {
+        let item = JSON.stringify(items[i])
+        data = data.replace(new RegExp(`(,${item})|(,${item},)|(${item},)`, 'g'), '')
+      }
+    })
+
+    localStorage.setItem(collection, data)
   }
 
   update(collection, key, value) {
