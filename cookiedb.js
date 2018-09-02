@@ -8,13 +8,15 @@ class CookieDB {
     localStorage.setItem(collection, JSON.stringify([]))
   }
 
-  insert(collection, value) {
-    value._id = this.length++
-    localStorage.setItem('length', JSON.stringify(this.length))
-
+  insert(collection, ...values) {
     let data = JSON.parse(localStorage.getItem(collection))
-    data.push(value)
 
+    values.forEach(value => {
+      value._id = this.length++
+      data.push(value)
+    })
+
+    localStorage.setItem('length', JSON.stringify(this.length))
     localStorage.setItem(collection, JSON.stringify(data))
   }
 
