@@ -8,13 +8,15 @@ class CookieDB {
     localStorage.setItem(collection, JSON.stringify([]))
   }
 
-  insert(collection, value) {
-    value._id = this.length++
-    localStorage.setItem('length', JSON.stringify(this.length))
-
+  insert(collection, ...values) {
     let data = JSON.parse(localStorage.getItem(collection))
-    data.push(value)
 
+    values.forEach(value => {
+      value._id = this.length++
+      data.push(value)
+    })
+
+    localStorage.setItem('length', JSON.stringify(this.length))
     localStorage.setItem(collection, JSON.stringify(data))
   }
 
@@ -27,19 +29,28 @@ class CookieDB {
     return items
   }
 
-  remove(collection, query) {
-    let items = this.find(query)
+  remove(collection, ...queries) {
+    let data = localStorage.getItem(collection)
 
-    for (let i = 0; i < items.length; i++)
-      localStorage.removeItem(items[i]._id)
+    queries.forEach(query => {
+      let items = this.find(collection, query)
+      for (let i = 0; i < items.length; i++) {
+        let item = JSON.stringify(items[i])
+        data = data.replace(new RegExp(`(,${item})|(,${item},)|(${item},)`, 'g'), '')
+      }
+    })
+
+    localStorage.setItem(collection, data)
   }
 
-  update(collection, key, value) {
+  update(collection, ...changes) {
     let items = JSON.parse(localStorage.getItem(collection))
 
-    for (let property in value) {
-      items[key][property] = value[property]
-    }
+    changes.forEach(function(change) {
+      for (let property in change.value) {
+        items[change.key][property] = change.value[property]
+      }
+    })
 
     localStorage.setItem(collection, JSON.stringify(items))
   }
